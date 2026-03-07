@@ -22,7 +22,6 @@
             min-height:100vh;
         }
 
-        /* LEFT SIDEBAR */
         .sidebar{
             width:245px;
             background:#fff;
@@ -74,36 +73,79 @@
             font-size:24px;
         }
 
-        /* MAIN FEED AREA */
         .content{
             margin-left:245px;
             width:calc(100% - 245px);
+            padding:30px 20px;
             display:flex;
             justify-content:center;
-            gap:28px;
-            padding:30px 20px;
         }
 
-        .feed-area{
-            width:630px;
+        .center{
+            width:700px;
         }
 
-        .stories-bar{
+        .panel{
+            display:none;
+        }
+
+        .panel.active{
+            display:block;
+        }
+
+        .card{
             background:#fff;
             border:1px solid #dbdbdb;
             border-radius:8px;
-            padding:16px 12px;
+            margin-bottom:20px;
+            overflow:hidden;
+        }
+
+        .section{
+            padding:18px;
+        }
+
+        .title{
+            font-size:20px;
+            font-weight:bold;
+            margin-bottom:14px;
+        }
+
+        .field{
+            width:100%;
+            padding:12px;
+            border:1px solid #dbdbdb;
+            border-radius:8px;
+            outline:none;
+            margin-bottom:12px;
+        }
+
+        .btn{
+            background:#0095f6;
+            color:white;
+            border:none;
+            padding:10px 16px;
+            border-radius:8px;
+            cursor:pointer;
+            font-weight:bold;
+        }
+
+        .btn.secondary{
+            background:#f2f2f2;
+            color:#262626;
+        }
+
+        .stories-bar{
             display:flex;
             gap:18px;
             overflow-x:auto;
-            margin-bottom:22px;
+            padding:16px 12px;
         }
 
         .story-item{
             min-width:78px;
             text-align:center;
             font-size:12px;
-            color:#262626;
         }
 
         .story-ring{
@@ -119,64 +161,25 @@
             width:100%;
             height:100%;
             border-radius:50%;
-            padding:2px;
             background:#fff;
+            padding:2px;
         }
 
         .story-inner img{
             width:100%;
             height:100%;
-            object-fit:cover;
             border-radius:50%;
+            object-fit:cover;
         }
 
-        .create-card,
-        .post-card,
-        .chat-card{
+        .post-card{
             background:#fff;
             border:1px solid #dbdbdb;
             border-radius:8px;
-            margin-bottom:22px;
+            margin-bottom:20px;
+            overflow:hidden;
         }
 
-        .create-card{
-            padding:18px;
-        }
-
-        .create-title{
-            font-size:18px;
-            font-weight:bold;
-            margin-bottom:14px;
-        }
-
-        .create-row{
-            display:flex;
-            flex-direction:column;
-            gap:12px;
-        }
-
-        .create-row input[type="text"]{
-            padding:12px;
-            border:1px solid #dbdbdb;
-            border-radius:8px;
-            outline:none;
-        }
-
-        .btn{
-            background:#0095f6;
-            border:none;
-            color:#fff;
-            padding:10px 16px;
-            border-radius:8px;
-            cursor:pointer;
-            font-weight:bold;
-        }
-
-        .btn:hover{
-            opacity:0.92;
-        }
-
-        /* POST */
         .post-header{
             display:flex;
             justify-content:space-between;
@@ -191,8 +194,8 @@
         }
 
         .avatar{
-            width:34px;
-            height:34px;
+            width:36px;
+            height:36px;
             border-radius:50%;
             background:#ddd;
             display:flex;
@@ -206,16 +209,6 @@
             font-size:14px;
         }
 
-        .post-time{
-            color:#8e8e8e;
-            font-size:13px;
-        }
-
-        .more{
-            font-size:22px;
-            cursor:pointer;
-        }
-
         .post-image-wrap{
             position:relative;
             background:#000;
@@ -223,7 +216,7 @@
 
         .post-image{
             width:100%;
-            max-height:750px;
+            max-height:700px;
             object-fit:cover;
             display:block;
         }
@@ -246,14 +239,9 @@
 
         .post-actions{
             display:flex;
-            justify-content:space-between;
+            gap:16px;
             padding:12px 16px 8px;
             font-size:24px;
-        }
-
-        .post-actions-left{
-            display:flex;
-            gap:16px;
         }
 
         .action{
@@ -278,23 +266,20 @@
         .comment{
             display:flex;
             justify-content:space-between;
-            align-items:flex-start;
-            gap:12px;
+            gap:10px;
             margin-bottom:8px;
             font-size:14px;
         }
 
         .comment-left{
             flex:1;
-            line-height:1.4;
         }
 
         .delete-btn{
             border:none;
             background:none;
-            cursor:pointer;
             color:#ed4956;
-            font-size:14px;
+            cursor:pointer;
         }
 
         .comment-row{
@@ -319,68 +304,13 @@
             cursor:pointer;
         }
 
-        /* RIGHT PANEL */
-        .right-panel{
-            width:320px;
-        }
-
-        .profile-box,
-        .chat-card{
-            background:#fff;
-            border:1px solid #dbdbdb;
-            border-radius:8px;
-        }
-
-        .profile-box{
-            padding:18px;
-            margin-bottom:18px;
-        }
-
-        .profile-row{
-            display:flex;
-            align-items:center;
-            gap:12px;
-        }
-
-        .profile-avatar{
-            width:52px;
-            height:52px;
-            border-radius:50%;
-            background:#ddd;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            font-weight:bold;
-            font-size:20px;
-        }
-
-        .profile-name{
-            font-weight:bold;
-        }
-
-        .profile-sub{
-            color:#8e8e8e;
-            font-size:14px;
-        }
-
-        .chat-title{
-            font-size:18px;
-            font-weight:bold;
-            padding:16px;
-            border-bottom:1px solid #efefef;
-        }
-
-        #chatStatus{
-            color:#8e8e8e;
-            font-size:13px;
-            padding:0 16px 12px;
-        }
-
-        #chatMessages{
-            height:380px;
+        .chat-box{
+            height:420px;
             overflow-y:auto;
-            padding:12px 16px;
+            padding:16px;
             background:#fafafa;
+            border-top:1px solid #efefef;
+            border-bottom:1px solid #efefef;
         }
 
         .chat-message{
@@ -394,14 +324,12 @@
         .chat-user{
             font-weight:bold;
             margin-bottom:4px;
-            font-size:14px;
         }
 
         .chat-input-row{
             display:flex;
-            gap:8px;
-            padding:14px 16px;
-            border-top:1px solid #efefef;
+            gap:10px;
+            padding:16px;
         }
 
         .chat-input-row input{
@@ -409,47 +337,73 @@
             padding:10px 12px;
             border:1px solid #dbdbdb;
             border-radius:8px;
-            outline:none;
         }
 
-        @media (max-width:1200px){
-            .right-panel{
-                display:none;
-            }
-            .feed-area{
-                width:640px;
-            }
+        .search-result{
+            padding:14px;
+            border-bottom:1px solid #efefef;
+            cursor:pointer;
         }
 
-        @media (max-width:900px){
-            .sidebar{
-                width:80px;
-                padding:20px 10px;
-            }
+        .search-result:hover{
+            background:#fafafa;
+        }
 
-            .logo{
-                font-size:18px;
-                text-align:center;
-                padding:0;
-            }
+        .profile-header{
+            padding:22px;
+            display:flex;
+            gap:20px;
+            align-items:flex-start;
+        }
 
-            .menu-item span:last-child{
-                display:none;
-            }
+        .profile-avatar{
+            width:90px;
+            height:90px;
+            border-radius:50%;
+            background:#ddd;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:28px;
+            font-weight:bold;
+        }
 
-            .content{
-                margin-left:80px;
-                width:calc(100% - 80px);
-            }
+        .profile-meta h2{
+            margin-bottom:8px;
+        }
 
-            .feed-area{
-                width:100%;
-                max-width:640px;
-            }
+        .profile-meta p{
+            color:#555;
+            margin-bottom:10px;
+        }
+
+        .profile-grid{
+            display:grid;
+            grid-template-columns:repeat(3, 1fr);
+            gap:8px;
+            padding:16px;
+        }
+
+        .profile-grid img{
+            width:100%;
+            aspect-ratio:1/1;
+            object-fit:cover;
+            border-radius:6px;
+        }
+
+        .empty{
+            padding:20px;
+            color:#8e8e8e;
+        }
+
+        .top-actions{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:14px;
         }
     </style>
 </head>
-
 <body>
 
 <div class="app">
@@ -459,90 +413,160 @@
             <div class="logo">Instagram</div>
 
             <div class="menu">
-                <div class="menu-item active"><span class="menu-icon">🏠</span><span>Home</span></div>
-                <div class="menu-item"><span class="menu-icon">🔍</span><span>Search</span></div>
+                <div class="menu-item active" id="menu-home" onclick="showPanel('home')"><span class="menu-icon">🏠</span><span>Home</span></div>
+                <div class="menu-item" id="menu-search" onclick="showPanel('search')"><span class="menu-icon">🔍</span><span>Search</span></div>
                 <div class="menu-item"><span class="menu-icon">🎬</span><span>Reels</span></div>
-                <div class="menu-item"><span class="menu-icon">💬</span><span>Messages</span></div>
+                <div class="menu-item" id="menu-messages" onclick="showPanel('messages')"><span class="menu-icon">💬</span><span>Messages</span></div>
                 <div class="menu-item"><span class="menu-icon">❤️</span><span>Notifications</span></div>
-                <div class="menu-item"><span class="menu-icon">➕</span><span>Create</span></div>
-                <div class="menu-item"><span class="menu-icon">👤</span><span>Profile</span></div>
+                <div class="menu-item" id="menu-create" onclick="showPanel('create')"><span class="menu-icon">➕</span><span>Create</span></div>
+                <div class="menu-item" id="menu-profile" onclick="openMyProfile()"><span class="menu-icon">👤</span><span>Profile</span></div>
             </div>
         </div>
 
         <div class="menu">
-            <div class="menu-item"><span class="menu-icon">☰</span><span>More</span></div>
+            <a href="/logout/" style="text-decoration:none; color:inherit;">
+                <div class="menu-item"><span class="menu-icon">↩️</span><span>Logout</span></div>
+            </a>
         </div>
     </div>
 
     <div class="content">
+        <div class="center">
 
-        <div class="feed-area">
-
-            <div class="create-card">
-                <div class="create-title">Create Post</div>
-                <form id="postForm" class="create-row">
-                    <input type="file" id="image" required>
-                    <input type="text" id="caption" placeholder="Write a caption...">
-                    <button class="btn" type="submit">Post</button>
-                </form>
+            <!-- HOME -->
+            <div id="panel-home" class="panel active">
+                <div class="card">
+                    <div id="storiesContainer" class="stories-bar"></div>
+                </div>
+                <div id="feedPosts"></div>
             </div>
 
-            <div class="create-card">
-                <div class="create-title">Add Story</div>
-                <div class="create-row">
-                    <input type="file" id="storyImage">
+            <!-- CREATE -->
+            <div id="panel-create" class="panel">
+                <div class="card section">
+                    <div class="title">Create Post</div>
+                    <form id="postForm">
+                        <input class="field" type="file" id="image" required>
+                        <input class="field" type="text" id="caption" placeholder="Write a caption...">
+                        <button class="btn" type="submit">Post</button>
+                    </form>
+                </div>
+
+                <div class="card section">
+                    <div class="title">Add Story</div>
+                    <input class="field" type="file" id="storyImage">
                     <button class="btn" type="button" onclick="uploadStory()">Add Story</button>
                 </div>
             </div>
 
-            <div id="storiesContainer" class="stories-bar"></div>
+            <!-- SEARCH -->
+            <div id="panel-search" class="panel">
+                <div class="card section">
+                    <div class="title">Search Users</div>
+                    <input class="field" type="text" id="searchInput" placeholder="Search username..." oninput="searchUsers()">
+                    <div id="searchResults"></div>
+                </div>
+            </div>
 
-            <div id="posts"></div>
-        </div>
+            <!-- MESSAGES -->
+            <div id="panel-messages" class="panel">
+                <div class="card">
+                    <div class="section">
+                        <div class="top-actions">
+                            <div class="title" style="margin:0;">Messages</div>
+                            <div id="chatStatus">Connecting...</div>
+                        </div>
+                    </div>
 
-        <div class="right-panel">
-            <div class="profile-box">
-                <div class="profile-row">
-                    <div class="profile-avatar" id="profileAvatar">U</div>
-                    <div>
-                        <div class="profile-name" id="profileName">user</div>
-                        <div class="profile-sub">Instagram Clone Demo</div>
+                    <div id="chatMessages" class="chat-box"></div>
+
+                    <div class="chat-input-row">
+                        <input type="text" id="chatInput" placeholder="Type message">
+                        <button class="btn" type="button" onclick="sendMessage()">Send</button>
                     </div>
                 </div>
             </div>
 
-            <div class="chat-card">
-                <div class="chat-title">Messages</div>
-                <div id="chatStatus">Connecting...</div>
-                <div id="chatMessages"></div>
+            <!-- PROFILE -->
+            <div id="panel-profile" class="panel">
+                <div class="card">
+                    <div class="profile-header">
+                        <div class="profile-avatar" id="profileAvatar">U</div>
+                        <div class="profile-meta">
+                            <h2 id="profileUsername">user</h2>
+                            <p id="profileBio">No bio</p>
 
-                <div class="chat-input-row">
-                    <input type="text" id="chatInput" placeholder="Type message">
-                    <button class="btn" type="button" onclick="sendMessage()">Send</button>
+                            <div id="myProfileEdit" style="display:none;">
+                                <textarea id="bioInput" class="field" rows="3" placeholder="Write your bio..."></textarea>
+                                <button class="btn" type="button" onclick="saveMyBio()">Save Bio</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-grid" id="profilePosts"></div>
+                    <div class="empty" id="profileEmpty" style="display:none;">No posts yet.</div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
 </div>
 
 <script>
-const API_POSTS = "http://127.0.0.1:8000/api/posts/";
-const API_COMMENTS = "http://127.0.0.1:8000/api/comments/";
-const API_LIKE = "http://127.0.0.1:8000/api/like/";
-const API_DELETE_COMMENT = "http://127.0.0.1:8000/api/comments/delete/";
-const API_STORIES = "http://127.0.0.1:8000/api/stories/";
+const CURRENT_USERNAME = "{{ username|escapejs }}";
 
-let CURRENT_USERNAME = localStorage.getItem("chat_username");
+const API_POSTS = "/api/posts/";
+const API_COMMENTS = "/api/comments/";
+const API_LIKE = "/api/like/";
+const API_DELETE_COMMENT = "/api/comments/delete/";
+const API_STORIES = "/api/stories/";
+const API_SEARCH_USERS = "/api/search-users/";
+const API_MY_PROFILE = "/api/my-profile/";
+const API_MY_PROFILE_UPDATE = "/api/my-profile/update/";
 
-if(!CURRENT_USERNAME){
-    CURRENT_USERNAME = prompt("Enter your name for chat:", "vishnu") || "vishnu";
-    localStorage.setItem("chat_username", CURRENT_USERNAME);
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const CSRF_TOKEN = getCookie("csrftoken");
+
+function setActiveMenu(menuId){
+    document.querySelectorAll(".menu-item").forEach(item => item.classList.remove("active"));
+    const current = document.getElementById(menuId);
+    if(current){
+        current.classList.add("active");
+    }
 }
 
-document.getElementById("profileName").innerText = CURRENT_USERNAME;
-document.getElementById("profileAvatar").innerText = CURRENT_USERNAME[0].toUpperCase();
+function showPanel(name){
+    document.querySelectorAll(".panel").forEach(panel => panel.classList.remove("active"));
+    document.getElementById(`panel-${name}`).classList.add("active");
 
+    if(name === "home"){
+        setActiveMenu("menu-home");
+        loadStories();
+        loadFeed();
+    }
+    if(name === "create"){
+        setActiveMenu("menu-create");
+    }
+    if(name === "search"){
+        setActiveMenu("menu-search");
+    }
+    if(name === "messages"){
+        setActiveMenu("menu-messages");
+    }
+}
 
 document.getElementById("postForm").onsubmit = async function(e){
     e.preventDefault();
@@ -562,7 +586,11 @@ document.getElementById("postForm").onsubmit = async function(e){
     try{
         const res = await fetch(API_POSTS,{
             method:"POST",
-            body:formData
+            body:formData,
+            credentials:"same-origin",
+            headers:{
+                "X-CSRFToken": CSRF_TOKEN
+            }
         });
 
         if(!res.ok){
@@ -574,12 +602,11 @@ document.getElementById("postForm").onsubmit = async function(e){
 
         await res.json();
         document.getElementById("postForm").reset();
-        loadPosts();
+        showPanel("home");
     }catch(error){
         console.log("Post create error:", error);
     }
 };
-
 
 async function uploadStory(){
     let file = document.getElementById("storyImage").files[0];
@@ -595,7 +622,11 @@ async function uploadStory(){
     try{
         const res = await fetch(API_STORIES, {
             method:"POST",
-            body:formData
+            body:formData,
+            credentials:"same-origin",
+            headers:{
+                "X-CSRFToken": CSRF_TOKEN
+            }
         });
 
         if(!res.ok){
@@ -607,15 +638,14 @@ async function uploadStory(){
 
         await res.json();
         document.getElementById("storyImage").value = "";
-        loadStories();
+        showPanel("home");
     }catch(error){
         console.log("Story upload error:", error);
     }
 }
 
-
 function loadStories(){
-    fetch(API_STORIES)
+    fetch(API_STORIES, { credentials:"same-origin" })
     .then(res=>res.json())
     .then(stories=>{
         let html = "";
@@ -633,6 +663,10 @@ function loadStories(){
             `;
         });
 
+        if(html === ""){
+            html = `<div class="empty">No stories yet.</div>`;
+        }
+
         document.getElementById("storiesContainer").innerHTML = html;
     })
     .catch(error=>{
@@ -640,72 +674,70 @@ function loadStories(){
     });
 }
 
+function renderPostCard(post){
+    let imageHtml = "";
+    if(post.image){
+        imageHtml = `
+            <div class="post-image-wrap" ondblclick="doubleTapLike(${post.id})">
+                <img class="post-image" src="${post.image}" alt="post image" onerror="this.style.display='none'">
+                <div class="heart-overlay" id="heart-${post.id}">❤️</div>
+            </div>
+        `;
+    }
 
-function loadPosts(){
-    fetch(API_POSTS)
+    return `
+        <div class="post-card">
+            <div class="post-header">
+                <div class="post-user">
+                    <div class="avatar">${(post.user_name ? post.user_name[0] : "U").toUpperCase()}</div>
+                    <div class="username">${post.user_name ? post.user_name : "User"}</div>
+                </div>
+                <div>⋯</div>
+            </div>
+
+            ${imageHtml}
+
+            <div class="post-actions">
+                <span class="action" onclick="likePost(${post.id})">❤️</span>
+                <span class="action">💬</span>
+            </div>
+
+            <div class="likes-text">${post.likes_count ? post.likes_count : 0} likes</div>
+
+            <div class="caption">
+                <b>${post.user_name ? post.user_name : "User"}</b> ${post.caption ? post.caption : ""}
+            </div>
+
+            <div class="comments-box" id="comments-${post.id}"></div>
+
+            <div class="comment-row">
+                <input id="comment-input-${post.id}" type="text" placeholder="Add a comment...">
+                <button class="comment-btn" type="button" onclick="addComment(${post.id})">Post</button>
+            </div>
+        </div>
+    `;
+}
+
+function loadFeed(){
+    fetch(API_POSTS, { credentials:"same-origin" })
     .then(res=>res.json())
     .then(posts=>{
         let html = "";
-
         posts.forEach(post=>{
-            let imageHtml = "";
-            if(post.image){
-                imageHtml = `
-                    <div class="post-image-wrap" ondblclick="doubleTapLike(${post.id})">
-                        <img class="post-image" src="${post.image}" alt="post image" onerror="this.style.display='none'">
-                        <div class="heart-overlay" id="heart-${post.id}">❤️</div>
-                    </div>
-                `;
-            }
-
-            html += `
-                <div class="post-card">
-                    <div class="post-header">
-                        <div class="post-user">
-                            <div class="avatar">${(post.user_name ? post.user_name[0] : "U").toUpperCase()}</div>
-                            <div>
-                                <div class="username">${post.user_name ? post.user_name : "User"}</div>
-                                <div class="post-time">Just now</div>
-                            </div>
-                        </div>
-                        <div class="more">⋯</div>
-                    </div>
-
-                    ${imageHtml}
-
-                    <div class="post-actions">
-                        <div class="post-actions-left">
-                            <span class="action" onclick="likePost(${post.id})">❤️</span>
-                            <span class="action">💬</span>
-                            <span class="action">📤</span>
-                        </div>
-                        <div class="action">🔖</div>
-                    </div>
-
-                    <div class="likes-text">${post.likes_count ? post.likes_count : 0} likes</div>
-
-                    <div class="caption">
-                        <b>${post.user_name ? post.user_name : "User"}</b> ${post.caption ? post.caption : ""}
-                    </div>
-
-                    <div class="comments-box" id="comments-${post.id}"></div>
-
-                    <div class="comment-row">
-                        <input id="comment-input-${post.id}" type="text" placeholder="Add a comment...">
-                        <button class="comment-btn" type="button" onclick="addComment(${post.id})">Post</button>
-                    </div>
-                </div>
-            `;
+            html += renderPostCard(post);
         });
 
-        document.getElementById("posts").innerHTML = html;
+        if(html === ""){
+            html = `<div class="card"><div class="empty">No posts yet.</div></div>`;
+        }
+
+        document.getElementById("feedPosts").innerHTML = html;
         loadComments();
     })
     .catch(error=>{
         console.log("Load posts error:", error);
     });
 }
-
 
 function addComment(postId){
     let textBox = document.getElementById(`comment-input-${postId}`);
@@ -719,8 +751,10 @@ function addComment(postId){
     fetch(API_COMMENTS,{
         method:"POST",
         headers:{
-            "Content-Type":"application/json"
+            "Content-Type":"application/json",
+            "X-CSRFToken": CSRF_TOKEN
         },
+        credentials:"same-origin",
         body:JSON.stringify({
             post: postId,
             text: text
@@ -729,16 +763,15 @@ function addComment(postId){
     .then(res=>res.json())
     .then(data=>{
         textBox.value = "";
-        loadPosts();
+        loadFeed();
     })
     .catch(error=>{
         console.log("Comment create error:", error);
     });
 }
 
-
 function loadComments(){
-    fetch(API_COMMENTS)
+    fetch(API_COMMENTS, { credentials:"same-origin" })
     .then(res=>res.json())
     .then(comments=>{
         document.querySelectorAll("[id^='comments-']").forEach(box=>{
@@ -765,26 +798,26 @@ function loadComments(){
     });
 }
 
-
 function likePost(postId){
     fetch(API_LIKE,{
         method:"POST",
         headers:{
-            "Content-Type":"application/json"
+            "Content-Type":"application/json",
+            "X-CSRFToken": CSRF_TOKEN
         },
+        credentials:"same-origin",
         body:JSON.stringify({
             post: postId
         })
     })
     .then(res=>res.json())
     .then(data=>{
-        loadPosts();
+        loadFeed();
     })
     .catch(error=>{
         console.log("Like error:", error);
     });
 }
-
 
 function doubleTapLike(postId){
     likePost(postId);
@@ -798,21 +831,123 @@ function doubleTapLike(postId){
     }
 }
 
-
 function deleteComment(commentId){
     fetch(`${API_DELETE_COMMENT}${commentId}/`,{
-        method:"DELETE"
+        method:"DELETE",
+        headers:{
+            "X-CSRFToken": CSRF_TOKEN
+        },
+        credentials:"same-origin"
     })
     .then(()=>{
-        loadPosts();
+        loadFeed();
     })
     .catch(error=>{
         console.log("Delete comment error:", error);
     });
 }
 
+function searchUsers(){
+    const q = document.getElementById("searchInput").value.trim();
 
-// Chat
+    fetch(`${API_SEARCH_USERS}?q=${encodeURIComponent(q)}`, { credentials:"same-origin" })
+    .then(res=>res.json())
+    .then(users=>{
+        let html = "";
+
+        users.forEach(user=>{
+            html += `
+                <div class="search-result" onclick="openUserProfile(${user.id})">
+                    <div><b>${user.username}</b></div>
+                    <div style="color:#8e8e8e; font-size:13px;">${user.bio ? user.bio : ""}</div>
+                </div>
+            `;
+        });
+
+        if(html === ""){
+            html = `<div class="empty">No users found.</div>`;
+        }
+
+        document.getElementById("searchResults").innerHTML = html;
+    })
+    .catch(error=>{
+        console.log("Search users error:", error);
+    });
+}
+
+function renderProfile(data, isMine){
+    document.querySelectorAll(".panel").forEach(panel => panel.classList.remove("active"));
+    document.getElementById("panel-profile").classList.add("active");
+
+    setActiveMenu("menu-profile");
+
+    document.getElementById("profileUsername").innerText = data.username;
+    document.getElementById("profileBio").innerText = data.bio ? data.bio : "No bio";
+    document.getElementById("profileAvatar").innerText = data.username[0].toUpperCase();
+
+    const editBox = document.getElementById("myProfileEdit");
+    if(isMine){
+        editBox.style.display = "block";
+        document.getElementById("bioInput").value = data.bio ? data.bio : "";
+    }else{
+        editBox.style.display = "none";
+    }
+
+    let grid = "";
+    data.posts.forEach(post=>{
+        if(post.image){
+            grid += `<img src="${post.image}" alt="post" onerror="this.style.display='none'">`;
+        }
+    });
+
+    document.getElementById("profilePosts").innerHTML = grid;
+    document.getElementById("profileEmpty").style.display = grid === "" ? "block" : "none";
+}
+
+function openMyProfile(){
+    fetch(API_MY_PROFILE, { credentials:"same-origin" })
+    .then(res=>res.json())
+    .then(data=>{
+        renderProfile(data, true);
+    })
+    .catch(error=>{
+        console.log("My profile error:", error);
+    });
+}
+
+function openUserProfile(userId){
+    fetch(`/api/users/${userId}/profile/`, { credentials:"same-origin" })
+    .then(res=>res.json())
+    .then(data=>{
+        renderProfile(data, false);
+    })
+    .catch(error=>{
+        console.log("User profile error:", error);
+    });
+}
+
+function saveMyBio(){
+    const bio = document.getElementById("bioInput").value;
+
+    fetch(API_MY_PROFILE_UPDATE,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "X-CSRFToken": CSRF_TOKEN
+        },
+        credentials:"same-origin",
+        body:JSON.stringify({ bio: bio })
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        openMyProfile();
+    })
+    .catch(error=>{
+        console.log("Save bio error:", error);
+    });
+}
+
+// CHAT
 const chatStatus = document.getElementById("chatStatus");
 const chatMessages = document.getElementById("chatMessages");
 const protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
@@ -865,9 +1000,8 @@ function sendMessage() {
     chatInput.value = "";
 }
 
-
-loadStories();
-loadPosts();
+// Initial load
+showPanel("home");
 </script>
 
 </body>
