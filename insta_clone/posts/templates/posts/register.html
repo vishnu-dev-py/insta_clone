@@ -1,59 +1,169 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register</title>
+    <title>Sign up • Instagram</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body{
+        *{
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
             font-family: Arial, sans-serif;
-            background:#fafafa;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
         }
+
+        body{
+            background:#fafafa;
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+        }
+
+        .wrapper{
+            width:100%;
+            max-width:350px;
+        }
+
         .box{
-            width:350px;
             background:#fff;
             border:1px solid #dbdbdb;
-            padding:30px;
-            border-radius:10px;
+            padding:40px 40px 24px;
+            text-align:center;
+            margin-bottom:10px;
         }
-        input{
-            width:100%;
-            padding:10px;
-            margin-bottom:12px;
-            border:1px solid #dbdbdb;
-            border-radius:8px;
+
+        .logo{
+            font-size:42px;
+            font-weight:bold;
+            margin-bottom:14px;
+            font-family:"Segoe Script", cursive;
         }
-        button{
+
+        .sub{
+            color:#8e8e8e;
+            font-size:16px;
+            font-weight:bold;
+            line-height:1.3;
+            margin-bottom:18px;
+        }
+
+        .btn-facebook{
             width:100%;
-            padding:10px;
-            background:#0095f6;
-            color:white;
             border:none;
+            background:#0095f6;
+            color:#fff;
             border-radius:8px;
+            padding:9px;
+            font-weight:bold;
+            cursor:pointer;
+            margin-bottom:18px;
+        }
+
+        .divider{
+            display:flex;
+            align-items:center;
+            gap:18px;
+            margin:18px 0;
+            color:#8e8e8e;
+            font-size:13px;
             font-weight:bold;
         }
-        a{
-            text-decoration:none;
+
+        .divider::before,
+        .divider::after{
+            content:"";
+            flex:1;
+            height:1px;
+            background:#dbdbdb;
         }
+
+        .input{
+            width:100%;
+            background:#fafafa;
+            border:1px solid #dbdbdb;
+            border-radius:4px;
+            padding:10px;
+            margin-bottom:8px;
+            font-size:12px;
+        }
+
+        .btn{
+            width:100%;
+            border:none;
+            background:#0095f6;
+            color:#fff;
+            border-radius:8px;
+            padding:9px;
+            margin-top:8px;
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+        .text{
+            font-size:12px;
+            color:#8e8e8e;
+            line-height:1.5;
+            margin-top:16px;
+        }
+
+        .bottom-box{
+            background:#fff;
+            border:1px solid #dbdbdb;
+            text-align:center;
+            padding:20px;
+            font-size:14px;
+        }
+
+        .bottom-box a{
+            text-decoration:none;
+            color:#0095f6;
+            font-weight:bold;
+        }
+
         .error{
-            color:red;
-            margin-top:10px;
+            color:#b00020;
+            background:#ffe8e8;
+            border:1px solid #ffb3b3;
+            padding:10px;
+            margin-top:12px;
+            border-radius:6px;
+            text-align:left;
+            font-size:13px;
         }
     </style>
 </head>
 <body>
+
+<div class="wrapper">
     <div class="box">
-        <h2>Create Account</h2>
-        <form method="POST">
+        <div class="logo">Instagram</div>
+        <div class="sub">Sign up to see photos and videos from your friends.</div>
+
+        <button class="btn-facebook" type="button">Log in with Facebook</button>
+
+        <div class="divider">OR</div>
+
+        <form method="POST" action="/register/">
             {% csrf_token %}
-            <input name="username" placeholder="Username">
-            <input name="password" type="password" placeholder="Password">
-            <button type="submit">Register</button>
+            <input class="input" type="text" name="username" placeholder="Username">
+            <input class="input" type="password" name="password" placeholder="Password">
+            <button class="btn" type="submit">Sign up</button>
         </form>
-        <p style="margin-top:15px;">Already have an account? <a href="/login/">Login</a></p>
-        <p class="error">{{ error }}</p>
+
+        <div class="text">
+            By signing up, you agree to our Terms, Privacy Policy and Cookies Policy.
+        </div>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
     </div>
+
+    <div class="bottom-box">
+        Have an account? <a href="/login/">Log in</a>
+    </div>
+</div>
+
 </body>
 </html>

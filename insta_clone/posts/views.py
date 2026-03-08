@@ -7,7 +7,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.utils import timezone
-from django.db.models import Q
 from datetime import timedelta
 
 from .models import Post, Like, Comment, Story, Profile
@@ -16,55 +15,69 @@ from .serializers import (
     PostSerializer,
     CommentSerializer,
     StorySerializer,
-    ProfileSerializer,
     UserSearchSerializer,
 )
 
 
 def home(request):
     if not request.user.is_authenticated:
-        return redirect("login")
+        return redirect("/login/")
     return render(request, "posts/index.html", {"username": request.user.username})
 
 
 def register_page(request):
-    if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+    error = ""
 
-        if not username or not password:
-            return render(request, "posts/register.html", {"error": "Username and password are required"})
+    if request.method == "POST":
+        username = request.POST.get("username", "").strip()
+        password = request.POST.get("password", "").strip()
+
+        if username == "" or password == "":
+            error = "Please enter username and password."
+            return render(request, "posts/register.html", {"error": error})
 
         if User.objects.filter(username=username).exists():
-            return render(request, "posts/register.html", {"error": "Username already exists"})
+            error = "Username already exists."
+            return render(request, "posts/register.html", {"error": error})
 
         user = User.objects.create_user(username=username, password=password)
-        Profile.objects.get_or_create(user=user)
 
-        return redirect("login")
+        try:
+            Profile.objects.get_or_create(user=user)
+        except Exception:
+            pass
 
-    return render(request, "posts/register.html")
+        return redirect("/login/")
+
+    return render(request, "posts/register.html", {"error": error})
 
 
 def login_page(request):
+    error = ""
+
     if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+        username = request.POST.get("username", "").strip()
+        password = request.POST.get("password", "").strip()
+
+        if username == "" or password == "":
+            error = "Please enter username and password."
+            return render(request, "posts/login.html", {"error": error})
 
         user = authenticate(request, username=username, password=password)
 
-        if user is not None:
-            login(request, user)
-            return redirect("home")
+        if user is None:
+            error = "Invalid username or password."
+            return render(request, "posts/login.html", {"error": error})
 
-        return render(request, "posts/login.html", {"error": "Invalid username or password"})
+        login(request, user)
+        return redirect("/")
 
-    return render(request, "posts/login.html")
+    return render(request, "posts/login.html", {"error": error})
 
 
 def logout_user(request):
     logout(request)
-    return redirect("login")
+    return redirect("/login/")
 
 
 class RegisterUser(generics.CreateAPIView):
@@ -77,7 +90,7 @@ class PostListCreateView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return Post.objects.all().order_by('-created_at')
+        return Post.objects.all().order_by("-created_at")
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -89,13 +102,13 @@ class StoryListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         last_24 = timezone.now() - timedelta(hours=24)
-        return Story.objects.filter(created_at__gte=last_24).order_by('-created_at')
+        return Story.objects.filter(created_at__gte=last_24).order_by("-created_at")
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
 
-@api_view(['POST'])
+@api_view(["POST"])
 @permission_classes([permissions.IsAuthenticated])
 def toggle_like(request):
     user = request.user
@@ -117,7 +130,7 @@ def toggle_like(request):
 
 
 class CommentListCreateView(generics.ListCreateAPIView):
-    queryset = Comment.objects.all().order_by('-created_at')
+    queryset = Comment.objects.all().order_by("-created_at")
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -125,7 +138,7 @@ class CommentListCreateView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
 
-@api_view(['DELETE'])
+@api_view(["DELETE"])
 @permission_classes([permissions.IsAuthenticated])
 def delete_comment(request, id):
     try:
@@ -144,7 +157,7 @@ class UserSearchView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        query = request.GET.get("q", "").strip()
+        query = (request.GET.get("q") or "").strip()
 
         users = User.objects.exclude(id=request.user.id)
         if query:
@@ -158,12 +171,17 @@ class MyProfileView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        profile, _ = Profile.objects.get_or_create(user=request.user)
-        posts = Post.objects.filter(user=request.user).order_by('-created_at')
+        try:
+            profile, _ = Profile.objects.get_or_create(user=request.user)
+            bio = profile.bio
+        except Exception:
+            bio = ""
+
+        posts = Post.objects.filter(user=request.user).order_by("-created_at")
 
         return Response({
             "username": request.user.username,
-            "bio": profile.bio,
+            "bio": bio,
             "posts": PostSerializer(posts, many=True, context={"request": request}).data
         })
 
@@ -172,10 +190,12 @@ class MyProfileUpdateView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
-        profile, _ = Profile.objects.get_or_create(user=request.user)
-        bio = request.data.get("bio", "")
-        profile.bio = bio
-        profile.save()
+        try:
+            profile, _ = Profile.objects.get_or_create(user=request.user)
+            profile.bio = request.data.get("bio", "")
+            profile.save()
+        except Exception:
+            pass
         return Response({"message": "Profile updated"})
 
 
@@ -188,11 +208,16 @@ class UserProfileView(APIView):
         except User.DoesNotExist:
             return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        profile, _ = Profile.objects.get_or_create(user=user)
-        posts = Post.objects.filter(user=user).order_by('-created_at')
+        try:
+            profile, _ = Profile.objects.get_or_create(user=user)
+            bio = profile.bio
+        except Exception:
+            bio = ""
+
+        posts = Post.objects.filter(user=user).order_by("-created_at")
 
         return Response({
             "username": user.username,
-            "bio": profile.bio,
+            "bio": bio,
             "posts": PostSerializer(posts, many=True, context={"request": request}).data
         })

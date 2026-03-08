@@ -11,6 +11,6 @@ django_asgi_app = get_asgi_application()
 application = ProtocolTypeRouter({
     "http": django_asgi_app,
     "websocket": URLRouter([
-        path("ws/chat/", ChatConsumer.as_asgi()),
+        path("ws/chat/<str:room_name>/", ChatConsumer.as_asgi()),
     ]),
 })
