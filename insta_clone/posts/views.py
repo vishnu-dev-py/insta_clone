@@ -41,11 +41,7 @@ def register_page(request):
             return render(request, "posts/register.html", {"error": error})
 
         user = User.objects.create_user(username=username, password=password)
-
-        try:
-            Profile.objects.get_or_create(user=user)
-        except Exception:
-            pass
+        Profile.objects.get_or_create(user=user)
 
         return redirect("/login/")
 
@@ -92,6 +88,11 @@ class PostListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         return Post.objects.all().order_by("-created_at")
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context["request"] = self.request
+        return context
+
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
@@ -103,6 +104,11 @@ class StoryListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         last_24 = timezone.now() - timedelta(hours=24)
         return Story.objects.filter(created_at__gte=last_24).order_by("-created_at")
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context["request"] = self.request
+        return context
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -134,6 +140,11 @@ class CommentListCreateView(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context["request"] = self.request
+        return context
+
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
@@ -163,7 +174,7 @@ class UserSearchView(APIView):
         if query:
             users = users.filter(username__icontains=query)
 
-        serializer = UserSearchSerializer(users[:20], many=True)
+        serializer = UserSearchSerializer(users[:20], many=True, context={"request": request})
         return Response(serializer.data)
 
 
@@ -171,17 +182,17 @@ class MyProfileView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        try:
-            profile, _ = Profile.objects.get_or_create(user=request.user)
-            bio = profile.bio
-        except Exception:
-            bio = ""
-
+        profile, _ = Profile.objects.get_or_create(user=request.user)
         posts = Post.objects.filter(user=request.user).order_by("-created_at")
+
+        profile_image = None
+        if profile.profile_image:
+            profile_image = request.build_absolute_uri(profile.profile_image.url)
 
         return Response({
             "username": request.user.username,
-            "bio": bio,
+            "bio": profile.bio,
+            "profile_image": profile_image,
             "posts": PostSerializer(posts, many=True, context={"request": request}).data
         })
 
@@ -190,13 +201,28 @@ class MyProfileUpdateView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
-        try:
-            profile, _ = Profile.objects.get_or_create(user=request.user)
-            profile.bio = request.data.get("bio", "")
-            profile.save()
-        except Exception:
-            pass
+        profile, _ = Profile.objects.get_or_create(user=request.user)
+        profile.bio = request.data.get("bio", "")
+        profile.save()
         return Response({"message": "Profile updated"})
+
+
+class ProfileImageUploadView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        profile, _ = Profile.objects.get_or_create(user=request.user)
+
+        if "profile_image" not in request.FILES:
+            return Response({"error": "No profile image provided"}, status=status.HTTP_400_BAD_REQUEST)
+
+        profile.profile_image = request.FILES["profile_image"]
+        profile.save()
+
+        return Response({
+            "message": "Profile image uploaded successfully",
+            "profile_image": request.build_absolute_uri(profile.profile_image.url)
+        })
 
 
 class UserProfileView(APIView):
@@ -208,16 +234,16 @@ class UserProfileView(APIView):
         except User.DoesNotExist:
             return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        try:
-            profile, _ = Profile.objects.get_or_create(user=user)
-            bio = profile.bio
-        except Exception:
-            bio = ""
-
+        profile, _ = Profile.objects.get_or_create(user=user)
         posts = Post.objects.filter(user=user).order_by("-created_at")
+
+        profile_image = None
+        if profile.profile_image:
+            profile_image = request.build_absolute_uri(profile.profile_image.url)
 
         return Response({
             "username": user.username,
-            "bio": bio,
+            "bio": profile.bio,
+            "profile_image": profile_image,
             "posts": PostSerializer(posts, many=True, context={"request": request}).data
         })

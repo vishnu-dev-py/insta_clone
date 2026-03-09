@@ -13,6 +13,7 @@ from .views import (
     UserSearchView,
     MyProfileView,
     MyProfileUpdateView,
+    ProfileImageUploadView,
     UserProfileView,
 )
 
@@ -32,5 +33,6 @@ urlpatterns = [
     path("api/search-users/", UserSearchView.as_view()),
     path("api/my-profile/", MyProfileView.as_view()),
     path("api/my-profile/update/", MyProfileUpdateView.as_view()),
+    path("api/profile/upload/", ProfileImageUploadView.as_view()),
     path("api/users/<int:user_id>/profile/", UserProfileView.as_view()),
 ]
